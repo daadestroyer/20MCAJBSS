@@ -1,0 +1,23 @@
+package lab3a;
+
+import java.util.Scanner;
+
+public class Student {
+
+	private int firstname;
+	private String lastname;
+	private int age;
+	private String email;
+
+	Scanner sc = new Scanner(System.in);
+
+	public void readSno() {
+		System.out.print("Enter studend first name : ");
+		firstname = sc.nextInt();
+	}
+
+	public void readSname() {
+		System.out.print("Enter studend last name : ");
+		lastname = sc.next();
+	}
+}

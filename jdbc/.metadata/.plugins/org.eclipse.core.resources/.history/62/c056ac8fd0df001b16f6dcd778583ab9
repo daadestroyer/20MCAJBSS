@@ -1,0 +1,61 @@
+package lab3a;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Service {
+	Connection cn;
+	Statement st;
+	String driverPath = "com.mysql.jdbc.Driver";
+	String url = "jdbc:mysql://localhost:3306/rvce";
+	String username = "root";
+	String password = "root";
+	
+	Service(){
+		try {
+			Class.forName(driverPath);
+			cn = DriverManager.getConnection(url, username, password);
+		} catch (Exception err) {
+			err.printStackTrace();
+		}
+	}
+	
+	public void myExecuteQry(String s) {
+		try {
+			st = cn.createStatement();
+			st.executeUpdate(s);
+		} catch (SQLException e) {
+			 
+			e.printStackTrace();
+		}
+	}
+	public ResultSet getResultSet(String s) {
+		ResultSet r;
+		try {
+			st = cn.createStatement();
+			r = st.executeQuery(s);
+			return r;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public void addStudent(Student stud) {
+		String q = "insert into student values (" + stud.getFirstname() + ",'" + stud.getLastname() + ",'" + stud.getAge() + ",'" + stud.getEmail()+"')";
+		myExecuteQry(q);
+	}
+	
+	public void updateStudent(Student stud) {
+		String q = "update studend set first = '" + stud.getFirstname() + "' where sno = " + stud.getId() + "";
+		myExecuteQry(q);
+	}
+	
+	public void deleteStudent(Student stud) {
+		String q = "delete from studend where id = " + stud.getId() + "";
+		myExecuteQry(q);
+	}
+}
